@@ -1,0 +1,3 @@
+- no buildable go files fixed by `make depend`
+- Unmarshal byte array, not a string
+- os.copy makes byte array not to be the array anymore
