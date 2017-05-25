@@ -1,12 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/mstovicek/go-chapter-1-google-places/google_api"
+	"github.com/mstovicek/go-chapter-1-google-places/http/google_api"
 )
 
 func main() {
-	fmt.Println("ping")
+	place := google_api.GetPlaceInformation("ChIJVXealLU_xkcRja_At0z9AGY")
 
-	google_api.Ping()
+	value, _ := json.Marshal(place)
+	fmt.Println(string(value))
 }
