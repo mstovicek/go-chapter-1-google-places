@@ -3,6 +3,9 @@ SOURCE=cmd/main.go
 
 all: clean depend build
 
+run: clean build
+	./build/$(NAME)
+
 clean:
 	rm -rf build/
 
