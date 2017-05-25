@@ -3,3 +3,4 @@
 - os.copy makes byte array not to be the array anymore
 - duck interfaces
 - https://gobyexample.com
+- pass wait group by reference

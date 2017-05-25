@@ -27,6 +27,5 @@ func (f File) Close() {
 }
 
 func (f File) Append(readableEntity entity.Readable) {
-	fmt.Println(readableEntity.ToString())
 	f.descriptor.WriteString(fmt.Sprintln(readableEntity.ToString()))
 }

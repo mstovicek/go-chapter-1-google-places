@@ -1,38 +1,40 @@
 package main
 
 import (
-	"fmt"
 	"github.com/mstovicek/go-chapter-1-google-places/entity/place"
 	"github.com/mstovicek/go-chapter-1-google-places/http/google_api"
 	"github.com/mstovicek/go-chapter-1-google-places/storage/file"
-	"math/rand"
 	"os"
-	"time"
+	"sync"
 )
 
 func main() {
 	f := file.Open(os.Args[1])
 	defer f.Close()
 
-	for _, placeId := range os.Args[2:] {
-		writePlace(f, getPlace(placeId))
+	placeIds := os.Args[2:]
+
+	var waitGroup sync.WaitGroup
+	waitGroup.Add(len(placeIds))
+
+	placesChan := make(chan place.Place)
+
+	go writePlace(f, placesChan, &waitGroup)
+
+	for _, placeId := range placeIds {
+		go getPlace(placeId, placesChan)
 	}
+
+	waitGroup.Wait()
 }
 
-func getPlace(placeId string) place.Place {
-	sleep()
-	return google_api.GetPlaceInformation(placeId)
+func getPlace(placeId string, placesChan chan<- place.Place) {
+	placesChan <- google_api.GetPlaceInformation(placeId)
 }
 
-func writePlace(f *file.File, place place.Place) {
-	f.Append(place)
-}
-
-func sleep() {
-	rand.Seed(time.Now().Unix())
-	ms := rand.Intn(1000)
-
-	fmt.Printf("sleep %dms \n", ms)
-
-	time.Sleep(time.Duration(ms) * time.Millisecond)
+func writePlace(f *file.File, placesChan <-chan place.Place, waitGroup *sync.WaitGroup) {
+	for place := range placesChan {
+		f.Append(place)
+		waitGroup.Done()
+	}
 }
