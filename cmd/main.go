@@ -9,9 +9,6 @@ import (
 )
 
 func main() {
-	f := file.Open(os.Args[1])
-	defer f.Close()
-
 	placeIds := os.Args[2:]
 
 	var waitGroup sync.WaitGroup
@@ -19,22 +16,27 @@ func main() {
 
 	placesChan := make(chan place.Place)
 
-	go writePlace(f, placesChan, &waitGroup)
-
 	for _, placeId := range placeIds {
 		go getPlace(placeId, placesChan)
 	}
 
+	var places place.Places
+
+	go func() {
+		for place := range placesChan {
+			places = append(places, &place)
+			waitGroup.Done()
+		}
+	}()
+
 	waitGroup.Wait()
+
+	f := file.Open(os.Args[1])
+	defer f.Close()
+
+	f.Append(places.String())
 }
 
 func getPlace(placeId string, placesChan chan<- place.Place) {
 	placesChan <- google_api.GetPlaceInformation(placeId)
-}
-
-func writePlace(f *file.File, placesChan <-chan place.Place, waitGroup *sync.WaitGroup) {
-	for place := range placesChan {
-		f.Append(place)
-		waitGroup.Done()
-	}
 }

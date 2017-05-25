@@ -4,7 +4,7 @@ SOURCE=cmd/main.go
 all: clean depend build
 
 run: clean build
-	./build/$(NAME) ./build/a.txt ChIJVXealLU_xkcRja_At0z9AGY ChIJAVkDPzdOqEcRcDteW0YgIQQ ChIJi3lwCZyTC0cRkEAWZg-vAAQ
+	./build/$(NAME) ./build/a.txt ChIJVXealLU_xkcRja_At0z9AGY ChIJAVkDPzdOqEcRcDteW0YgIQQ ChIJi3lwCZyTC0cRkEAWZg-vAAQ ChIJ674hC6Y_WBQRujtC6Jay33k ChIJwVPhxKtlJA0RvBSxQFbZSKY
 	cat ./build/a.txt
 
 clean:

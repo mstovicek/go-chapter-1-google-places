@@ -2,6 +2,8 @@ package place
 
 import "encoding/json"
 
+type Places []*Place
+
 type Place struct {
 	PlaceId          string
 	Name             string
@@ -10,7 +12,11 @@ type Place struct {
 	Lng              float64
 }
 
-func (place Place) ToString() string {
-	value, _ := json.Marshal(place)
+func (places Places) String() string {
+	value, err := json.Marshal(places)
+	if err != nil {
+		panic(err)
+	}
+
 	return string(value)
 }

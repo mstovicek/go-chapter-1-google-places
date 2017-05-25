@@ -1,8 +1,6 @@
 package file
 
 import (
-	"fmt"
-	"github.com/mstovicek/go-chapter-1-google-places/entity"
 	"os"
 )
 
@@ -26,6 +24,6 @@ func (f File) Close() {
 	}
 }
 
-func (f File) Append(readableEntity entity.Readable) {
-	f.descriptor.WriteString(fmt.Sprintln(readableEntity.ToString()))
+func (f File) Append(str string) {
+	f.descriptor.WriteString(str)
 }
