@@ -6,26 +6,27 @@ import (
 	"os"
 )
 
-type file struct {
+type File struct {
 	descriptor *os.File
 }
 
-func Open(filename string) *file {
+func Open(filename string) *File {
 	descriptor, err := os.Create(filename)
 	if err != nil {
 		panic(err)
 	}
 
-	return &file{descriptor}
+	return &File{descriptor}
 }
 
-func (f file) Close() {
+func (f File) Close() {
 	err := f.descriptor.Close()
 	if err != nil {
 		panic(err)
 	}
 }
 
-func (f file) Append(readableEntity entity.Readable) {
+func (f File) Append(readableEntity entity.Readable) {
+	fmt.Println(readableEntity.ToString())
 	f.descriptor.WriteString(fmt.Sprintln(readableEntity.ToString()))
 }
