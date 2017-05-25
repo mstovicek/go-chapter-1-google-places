@@ -1,4 +1,6 @@
-hash: abfc35a48646cb6d48b8ca192fd148418049478fb9165f448ab35a3a6a34a150
-updated: 2017-05-25T20:08:57.479399244+02:00
-imports: []
+hash: ac8d7f802286649fb74f2163a372329acdc52ec7c5adca4dc0b47a5d389e0c90
+updated: 2017-05-25T20:16:05.059286396+02:00
+imports:
+- name: github.com/joeshaw/envdecode
+  version: 80f1552844fb7b53167f2eece6242494396b2fe6
 testImports: []
