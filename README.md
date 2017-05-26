@@ -71,36 +71,46 @@ cat ./build/output.txt
 		"PlaceId": "ChIJVXealLU_xkcRja_At0z9AGY",
 		"Name": "Amsterdam",
 		"FormattedAddress": "Amsterdam, Netherlands",
-		"Lat": 52.3702157,
-		"Lng": 4.895167900000001
+		"Coordinates": {
+			"Lat": 52.3702157,
+			"Lng": 4.895167900000001
+		}
 	},
 	{
 		"PlaceId": "ChIJi3lwCZyTC0cRkEAWZg-vAAQ",
 		"Name": "Prague",
 		"FormattedAddress": "Prague, Czechia",
-		"Lat": 50.0755381,
-		"Lng": 14.4378005
-	},
-	{
-		"PlaceId": "ChIJwVPhxKtlJA0RvBSxQFbZSKY",
-		"Name": "Porto",
-		"FormattedAddress": "Porto, Portugal",
-		"Lat": 41.1579438,
-		"Lng": -8.629105299999999
+		"Coordinates": {
+			"Lat": 50.0755381,
+			"Lng": 14.4378005
+		}
 	},
 	{
 		"PlaceId": "ChIJ674hC6Y_WBQRujtC6Jay33k",
 		"Name": "Cairo",
 		"FormattedAddress": "Cairo, Cairo Governorate, Egypt",
-		"Lat": 30.0444196,
-		"Lng": 31.2357116
+		"Coordinates": {
+			"Lat": 30.0444196,
+			"Lng": 31.2357116
+		}
 	},
 	{
 		"PlaceId": "ChIJAVkDPzdOqEcRcDteW0YgIQQ",
 		"Name": "Berlin",
 		"FormattedAddress": "Berlin, Germany",
-		"Lat": 52.52000659999999,
-		"Lng": 13.404954
+		"Coordinates": {
+			"Lat": 52.52000659999999,
+			"Lng": 13.404954
+		}
+	},
+	{
+		"PlaceId": "ChIJwVPhxKtlJA0RvBSxQFbZSKY",
+		"Name": "Porto",
+		"FormattedAddress": "Porto, Portugal",
+		"Coordinates": {
+			"Lat": 41.1579438,
+			"Lng": -8.629105299999999
+		}
 	}
 ]
 ```
