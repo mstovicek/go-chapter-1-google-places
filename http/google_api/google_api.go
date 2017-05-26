@@ -12,7 +12,7 @@ import (
 const googlePlaceEndpoint = "https://maps.googleapis.com/maps/api/place/details/json?key=%s&placeid=%s"
 
 type config struct {
-	ApiKey string `env:"API_KEY,default=AIzaSyD7n4P7VjLkW5-mjPJVAl5YBT_JxL2gDR0"`
+	ApiKey string `env:"API_KEY"`
 }
 
 type googlePlace struct {
