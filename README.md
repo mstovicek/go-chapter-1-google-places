@@ -114,3 +114,10 @@ cat ./build/output.txt
 	}
 ]
 ```
+
+## Learnings
+
+- *no buildable go files* error fixed by `make depend`
+- Unmarshal accepts byte array, not a string
+- useful example on https://gobyexample.com
+- WaitGroup must be passed by reference
