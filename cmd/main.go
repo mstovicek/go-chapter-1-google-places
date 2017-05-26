@@ -31,13 +31,17 @@ func main() {
 
 	waitGroup.Wait()
 
-	f := file.Open(os.Args[1])
-	defer f.Close()
-
-	f.Append(places.String())
-	f.Append("\n")
+	saveToFile(os.Args[1], places)
 }
 
 func getPlace(placeId string, placesChan chan<- place.Place) {
 	placesChan <- google_api.GetPlaceInformation(placeId)
+}
+
+func saveToFile(filename string, places place.Places) {
+	f := file.Open(filename)
+	defer f.Close()
+
+	f.Append(places.String())
+	f.Append("\n")
 }
