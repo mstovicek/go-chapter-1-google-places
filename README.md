@@ -58,14 +58,9 @@ See the output in the generated file:
 cat ./build/output.txt
 ```
 
-## Output
+### Output
 
 ```
-$ make run
-rm -rf build/
-go build -o build/go-chapter-1-google-places cmd/main.go
-API_KEY=AIzaSyD7n4P7VjLkW5-mjPJVAl5YBT_JxL2gDR0 ./build/go-chapter-1-google-places ./build/output.txt ChIJVXealLU_xkcRja_At0z9AGY ChIJAVkDPzdOqEcRcDteW0YgIQQ ChIJi3lwCZyTC0cRkEAWZg-vAAQ ChIJ674hC6Y_WBQRujtC6Jay33k ChIJwVPhxKtlJA0RvBSxQFbZSKY
-cat ./build/output.txt
 [
 	{
 		"place_id": "ChIJi3lwCZyTC0cRkEAWZg-vAAQ",
