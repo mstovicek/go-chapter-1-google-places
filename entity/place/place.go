@@ -8,8 +8,10 @@ type Place struct {
 	PlaceId          string
 	Name             string
 	FormattedAddress string
-	Lat              float64
-	Lng              float64
+	Coordinates      struct {
+		Lat float64
+		Lng float64
+	}
 }
 
 func (places Places) String() string {

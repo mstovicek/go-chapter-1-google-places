@@ -57,10 +57,15 @@ func GetPlaceInformation(placeId string) place.Place {
 
 func placeFromGooglePlace(gPlace googlePlace) place.Place {
 	return place.Place{
-		gPlace.Result.PlaceId,
-		gPlace.Result.Name,
-		gPlace.Result.FormattedAddress,
-		gPlace.Result.Geometry.Location.Lat,
-		gPlace.Result.Geometry.Location.Lng,
+		PlaceId:          gPlace.Result.PlaceId,
+		Name:             gPlace.Result.Name,
+		FormattedAddress: gPlace.Result.FormattedAddress,
+		Coordinates: struct {
+			Lat float64
+			Lng float64
+		}{
+			Lat: gPlace.Result.Geometry.Location.Lat,
+			Lng: gPlace.Result.Geometry.Location.Lng,
+		},
 	}
 }
