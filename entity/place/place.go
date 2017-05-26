@@ -2,7 +2,7 @@ package place
 
 import "encoding/json"
 
-type Places []*Place
+type Places []Place
 
 type Place struct {
 	PlaceId          string
@@ -13,7 +13,7 @@ type Place struct {
 }
 
 func (places Places) String() string {
-	value, err := json.Marshal(places)
+	value, err := json.MarshalIndent(places, "", "\t")
 	if err != nil {
 		panic(err)
 	}

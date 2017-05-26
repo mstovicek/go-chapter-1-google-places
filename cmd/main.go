@@ -24,7 +24,7 @@ func main() {
 
 	go func() {
 		for place := range placesChan {
-			places = append(places, &place)
+			places = append(places, place)
 			waitGroup.Done()
 		}
 	}()
@@ -35,6 +35,7 @@ func main() {
 	defer f.Close()
 
 	f.Append(places.String())
+	f.Append("\n")
 }
 
 func getPlace(placeId string, placesChan chan<- place.Place) {
