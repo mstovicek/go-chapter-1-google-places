@@ -23,8 +23,8 @@ type googlePlace struct {
 		FormattedAddress string `json:"formatted_address"`
 		Geometry         struct {
 			Location struct {
-				Lat float64 `json:"lat"`
-				Lng float64 `json:"lng"`
+				Lat float64
+				Lng float64
 			}
 		}
 	}
@@ -60,10 +60,7 @@ func placeFromGooglePlace(gPlace googlePlace) place.Place {
 		PlaceId:          gPlace.Result.PlaceId,
 		Name:             gPlace.Result.Name,
 		FormattedAddress: gPlace.Result.FormattedAddress,
-		Coordinates: struct {
-			Lat float64
-			Lng float64
-		}{
+		Coordinates: place.Coordinates{
 			Lat: gPlace.Result.Geometry.Location.Lat,
 			Lng: gPlace.Result.Geometry.Location.Lng,
 		},
