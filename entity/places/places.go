@@ -5,21 +5,25 @@ import (
 )
 
 type Places struct {
-	Places  []Place
+	places  []Place
 	storage Storage
 	api     Api
 }
 
 func NewPlaces(s Storage, a Api) *Places {
 	return &Places{
-		Places:  []Place{},
+		places:  []Place{},
 		storage: s,
 		api:     a,
 	}
 }
 
+func (places *Places) AddPlace(place Place) {
+	places.places = append(places.places, place)
+}
+
 func (places *Places) String() string {
-	value, err := json.MarshalIndent(places.Places, "", "\t")
+	value, err := json.MarshalIndent(places.places, "", "\t")
 	if err != nil {
 		panic(err)
 	}

@@ -27,7 +27,7 @@ func main() {
 
 	go func() {
 		for place := range placesChan {
-			places.Places = append(places.Places, place)
+			places.AddPlace(place)
 			waitGroup.Done()
 		}
 	}()
