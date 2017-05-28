@@ -1,5 +1,5 @@
 package places
 
-type Api interface {
-	GetPlace(placeId string) (*Place, error)
+type API interface {
+	GetPlace(placeID string) (*Place, error)
 }

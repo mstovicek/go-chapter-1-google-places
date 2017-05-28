@@ -6,7 +6,7 @@ type Coordinates struct {
 }
 
 type Place struct {
-	PlaceId          string      `json:"place_id"`
+	PlaceID          string      `json:"place_id"`
 	Name             string      `json:"name"`
 	FormattedAddress string      `json:"formatted_address"`
 	Coordinates      Coordinates `json:"coordinates"`

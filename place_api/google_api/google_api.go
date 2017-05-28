@@ -1,4 +1,4 @@
-package google_api
+package googleAPI
 
 import (
 	"encoding/json"
@@ -16,13 +16,13 @@ const googlePlaceEndpoint = "https://maps.googleapis.com/maps/api/place/details/
 const statusOk = "OK"
 
 type config struct {
-	ApiKey string `env:"API_KEY"`
+	APIKey string `env:"API_KEY"`
 }
 
 type googlePlace struct {
 	Status string `json:"status"`
 	Result struct {
-		PlaceId          string `json:"place_id"`
+		PlaceID          string `json:"place_id"`
 		Name             string `json:"name"`
 		FormattedAddress string `json:"formatted_address"`
 		Geometry         struct {
@@ -34,14 +34,14 @@ type googlePlace struct {
 	}
 }
 
-type GoogleApi struct {
+type GoogleAPI struct {
 }
 
-func NewGoogleApi() *GoogleApi {
-	return &GoogleApi{}
+func NewGoogleAPI() *GoogleAPI {
+	return &GoogleAPI{}
 }
 
-func (googleApi *GoogleApi) GetPlace(placeId string) (*places.Place, error) {
+func (googleApi *GoogleAPI) GetPlace(placeID string) (*places.Place, error) {
 	var cnf config
 	err := envdecode.Decode(&cnf)
 	if err != nil {
@@ -51,10 +51,10 @@ func (googleApi *GoogleApi) GetPlace(placeId string) (*places.Place, error) {
 	start := time.Now()
 
 	log.WithFields(log.Fields{
-		"placeId": placeId,
+		"placeID": placeID,
 	}).Info("Fetching place information")
 
-	resp, err := http.Get(fmt.Sprintf(googlePlaceEndpoint, cnf.ApiKey, placeId))
+	resp, err := http.Get(fmt.Sprintf(googlePlaceEndpoint, cnf.APIKey, placeID))
 	if err != nil {
 		panic(err)
 	}
@@ -70,7 +70,7 @@ func (googleApi *GoogleApi) GetPlace(placeId string) (*places.Place, error) {
 	json.Unmarshal(body, &res)
 
 	log.WithFields(log.Fields{
-		"placeId":      placeId,
+		"placeID":      placeID,
 		"responseCode": resp.StatusCode,
 		"status":       res.Status,
 		"timeMs":       time.Since(start),
@@ -78,11 +78,11 @@ func (googleApi *GoogleApi) GetPlace(placeId string) (*places.Place, error) {
 
 	if res.Status != statusOk {
 		log.WithFields(log.Fields{
-			"placeId": placeId,
+			"placeID": placeID,
 			"status":  res.Status,
 		}).Warn("Request not successful")
 
-		return nil, fmt.Errorf("Cannot get place information (place id = %s)", placeId)
+		return nil, fmt.Errorf("Cannot get place information (place id = %s)", placeID)
 	}
 
 	p := placeFromGooglePlace(res)
@@ -91,7 +91,7 @@ func (googleApi *GoogleApi) GetPlace(placeId string) (*places.Place, error) {
 
 func placeFromGooglePlace(gPlace googlePlace) places.Place {
 	return places.Place{
-		PlaceId:          gPlace.Result.PlaceId,
+		PlaceID:          gPlace.Result.PlaceID,
 		Name:             gPlace.Result.Name,
 		FormattedAddress: gPlace.Result.FormattedAddress,
 		Coordinates: places.Coordinates{

@@ -18,11 +18,11 @@ func main() {
 
 	places := places.NewPlaces(
 		file.NewFile(os.Args[1]),
-		google_api.NewGoogleApi(),
+		googleAPI.NewGoogleAPI(),
 	)
 
-	for _, placeId := range placeIds {
-		go getPlace(places, placeId, placesChan)
+	for _, placeID := range placeIds {
+		go getPlace(places, placeID, placesChan)
 	}
 
 	go func() {
@@ -39,7 +39,7 @@ func main() {
 	places.Save()
 }
 
-func getPlace(places *places.Places, placeId string, placesChan chan<- *places.Place) {
-	p := places.GetPlace(placeId)
+func getPlace(places *places.Places, placeID string, placesChan chan<- *places.Place) {
+	p := places.GetPlace(placeID)
 	placesChan <- p
 }

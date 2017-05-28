@@ -8,10 +8,10 @@ import (
 type Places struct {
 	places  []Place
 	storage Storage
-	api     Api
+	api     API
 }
 
-func NewPlaces(s Storage, a Api) *Places {
+func NewPlaces(s Storage, a API) *Places {
 	return &Places{
 		places:  []Place{},
 		storage: s,
@@ -40,8 +40,8 @@ func (places *Places) Save() {
 	places.storage.Append("\n")
 }
 
-func (places *Places) GetPlace(placeId string) *Place {
-	p, err := places.api.GetPlace(placeId)
+func (places *Places) GetPlace(placeID string) *Place {
+	p, err := places.api.GetPlace(placeID)
 	if err != nil {
 		log.Error(err.Error())
 		return nil
