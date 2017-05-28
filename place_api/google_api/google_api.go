@@ -35,26 +35,29 @@ type googlePlace struct {
 }
 
 type GoogleAPI struct {
+	cnf config
 }
 
 func NewGoogleAPI() *GoogleAPI {
-	return &GoogleAPI{}
-}
-
-func (googleApi *GoogleAPI) GetPlace(placeID string) (*places.Place, error) {
 	var cnf config
 	err := envdecode.Decode(&cnf)
 	if err != nil {
 		panic(err)
 	}
 
+	return &GoogleAPI{
+		cnf: cnf,
+	}
+}
+
+func (googleAPI *GoogleAPI) GetPlace(placeID string) (*places.Place, error) {
 	start := time.Now()
 
 	log.WithFields(log.Fields{
 		"placeID": placeID,
 	}).Info("Fetching place information")
 
-	resp, err := http.Get(fmt.Sprintf(googlePlaceEndpoint, cnf.APIKey, placeID))
+	resp, err := http.Get(fmt.Sprintf(googlePlaceEndpoint, googleAPI.cnf.APIKey, placeID))
 	if err != nil {
 		panic(err)
 	}
