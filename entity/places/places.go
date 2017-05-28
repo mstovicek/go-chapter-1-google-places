@@ -19,7 +19,7 @@ func NewPlaces(s Storage, a Api) *Places {
 }
 
 func (places *Places) String() string {
-	value, err := json.MarshalIndent(places, "", "\t")
+	value, err := json.MarshalIndent(places.Places, "", "\t")
 	if err != nil {
 		panic(err)
 	}
