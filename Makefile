@@ -1,5 +1,5 @@
 NAME=go-chapter-1-google-places
-SOURCE=cmd/main.go
+SOURCE=main.go
 
 all: clean depend build
 
