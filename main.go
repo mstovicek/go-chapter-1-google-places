@@ -22,7 +22,10 @@ func main() {
 	)
 
 	for _, placeID := range placeIds {
-		go getPlace(places, placeID, placesChan)
+		go func(placeID string) {
+			p := places.GetPlace(placeID)
+			placesChan <- p
+		}(placeID)
 	}
 
 	go func() {
@@ -37,9 +40,4 @@ func main() {
 	waitGroup.Wait()
 
 	places.Save()
-}
-
-func getPlace(places *places.Places, placeID string, placesChan chan<- *places.Place) {
-	p := places.GetPlace(placeID)
-	placesChan <- p
 }
