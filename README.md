@@ -116,3 +116,5 @@ cat ./build/output.txt
 - Unmarshal accepts byte array, not a string
 - useful example on https://gobyexample.com
 - WaitGroup must be passed by reference
+- https://appliedgo.net/random about random generation for sleeping in a go routine
+- https://appliedgo.net/di/ about dependency injection

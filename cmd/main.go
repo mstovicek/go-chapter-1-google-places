@@ -2,7 +2,8 @@ package main
 
 import (
 	"github.com/mstovicek/go-chapter-1-google-places/entity/place"
-	"github.com/mstovicek/go-chapter-1-google-places/http/google_api"
+	"github.com/mstovicek/go-chapter-1-google-places/entity/places"
+	"github.com/mstovicek/go-chapter-1-google-places/place_api/google_api"
 	"github.com/mstovicek/go-chapter-1-google-places/storage/file"
 	"os"
 	"sync"
@@ -20,28 +21,22 @@ func main() {
 		go getPlace(placeId, placesChan)
 	}
 
-	var places place.Places
+	file := file.NewFile(os.Args[1])
+	places := places.NewPlaces(file)
 
 	go func() {
 		for place := range placesChan {
-			places = append(places, place)
+			places.Places = append(places.Places, place)
 			waitGroup.Done()
 		}
 	}()
 
 	waitGroup.Wait()
 
-	saveToFile(os.Args[1], places)
+	places.Save()
 }
 
 func getPlace(placeId string, placesChan chan<- place.Place) {
-	placesChan <- google_api.GetPlaceInformation(placeId)
-}
-
-func saveToFile(filename string, places place.Places) {
-	f := file.Open(filename)
-	defer f.Close()
-
-	f.Append(places.String())
-	f.Append("\n")
+	p := google_api.GetPlaceInformation(placeId)
+	placesChan <- p
 }

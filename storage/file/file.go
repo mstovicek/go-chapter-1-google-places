@@ -5,25 +5,29 @@ import (
 )
 
 type File struct {
+	filename   string
 	descriptor *os.File
 }
 
-func Open(filename string) *File {
-	descriptor, err := os.Create(filename)
+func NewFile(f string) *File {
+	return &File{filename: f}
+}
+
+func (f *File) Open() {
+	d, err := os.Create(f.filename)
 	if err != nil {
 		panic(err)
 	}
-
-	return &File{descriptor}
+	f.descriptor = d
 }
 
-func (f File) Close() {
+func (f *File) Close() {
 	err := f.descriptor.Close()
 	if err != nil {
 		panic(err)
 	}
 }
 
-func (f File) Append(str string) {
+func (f *File) Append(str string) {
 	f.descriptor.WriteString(str)
 }
