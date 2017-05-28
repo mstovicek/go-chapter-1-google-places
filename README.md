@@ -118,3 +118,4 @@ cat ./build/output.txt
 - WaitGroup must be passed by reference
 - https://appliedgo.net/random about random generation for sleeping in a go routine
 - https://appliedgo.net/di/ about dependency injection
+- when returning error, return pointer to the value to be nil-able

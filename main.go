@@ -14,7 +14,7 @@ func main() {
 	var waitGroup sync.WaitGroup
 	waitGroup.Add(len(placeIds))
 
-	placesChan := make(chan places.Place)
+	placesChan := make(chan *places.Place)
 
 	places := places.NewPlaces(
 		file.NewFile(os.Args[1]),
@@ -27,7 +27,9 @@ func main() {
 
 	go func() {
 		for place := range placesChan {
-			places.AddPlace(place)
+			if place != nil {
+				places.AddPlace(*place)
+			}
 			waitGroup.Done()
 		}
 	}()
@@ -37,7 +39,7 @@ func main() {
 	places.Save()
 }
 
-func getPlace(places *places.Places, placeId string, placesChan chan<- places.Place) {
+func getPlace(places *places.Places, placeId string, placesChan chan<- *places.Place) {
 	p := places.GetPlace(placeId)
 	placesChan <- p
 }

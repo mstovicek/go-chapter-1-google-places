@@ -2,6 +2,7 @@ package places
 
 import (
 	"encoding/json"
+	log "github.com/Sirupsen/logrus"
 )
 
 type Places struct {
@@ -39,10 +40,11 @@ func (places *Places) Save() {
 	places.storage.Append("\n")
 }
 
-func (places *Places) GetPlace(placeId string) Place {
-	place, _ := places.api.GetPlace(placeId)
-
-	// take care about err
-
-	return place
+func (places *Places) GetPlace(placeId string) *Place {
+	p, err := places.api.GetPlace(placeId)
+	if err != nil {
+		log.Error(err.Error())
+		return nil
+	}
+	return p
 }

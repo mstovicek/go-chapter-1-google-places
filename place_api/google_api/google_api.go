@@ -41,7 +41,7 @@ func NewGoogleApi() *GoogleApi {
 	return &GoogleApi{}
 }
 
-func (googleApi *GoogleApi) GetPlace(placeId string) (places.Place, error) {
+func (googleApi *GoogleApi) GetPlace(placeId string) (*places.Place, error) {
 	var cnf config
 	err := envdecode.Decode(&cnf)
 	if err != nil {
@@ -82,10 +82,11 @@ func (googleApi *GoogleApi) GetPlace(placeId string) (places.Place, error) {
 			"status":  res.Status,
 		}).Warn("Request not successful")
 
-		return places.Place{}, fmt.Errorf("Request for place %d not successful", placeId)
+		return nil, fmt.Errorf("Cannot get place information (place id = %s)", placeId)
 	}
 
-	return placeFromGooglePlace(res), nil
+	p := placeFromGooglePlace(res)
+	return &p, nil
 }
 
 func placeFromGooglePlace(gPlace googlePlace) places.Place {
