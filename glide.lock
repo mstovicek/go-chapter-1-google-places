@@ -1,6 +1,8 @@
-hash: ac8d7f802286649fb74f2163a372329acdc52ec7c5adca4dc0b47a5d389e0c90
-updated: 2017-05-25T20:16:05.059286396+02:00
+hash: 25a824d4ede1d980851d8c151bda9220493f5f0989e52f4a359c03b2ca21b13a
+updated: 2017-05-28T17:35:22.263112908+02:00
 imports:
 - name: github.com/joeshaw/envdecode
   version: 80f1552844fb7b53167f2eece6242494396b2fe6
+- name: github.com/Sirupsen/logrus
+  version: ba1b36c82c5e05c4f912a88eab0dcd91a171688f
 testImports: []

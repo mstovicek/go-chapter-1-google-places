@@ -3,10 +3,12 @@ package google_api
 import (
 	"encoding/json"
 	"fmt"
+	log "github.com/Sirupsen/logrus"
 	"github.com/joeshaw/envdecode"
 	"github.com/mstovicek/go-chapter-1-google-places/entity/places"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 const googlePlaceEndpoint = "https://maps.googleapis.com/maps/api/place/details/json?key=%s&placeid=%s"
@@ -44,10 +46,22 @@ func (googleApi *GoogleApi) GetPlace(placeId string) places.Place {
 		panic(err)
 	}
 
+	start := time.Now()
+
+	log.WithFields(log.Fields{
+		"placeId": placeId,
+	}).Info("Fetching place information")
+
 	resp, err := http.Get(fmt.Sprintf(googlePlaceEndpoint, cnf.ApiKey, placeId))
 	if err != nil {
 		panic(err)
 	}
+
+	log.WithFields(log.Fields{
+		"placeId":      placeId,
+		"responseCode": resp.StatusCode,
+		"timeMs":       time.Since(start),
+	}).Info("Fetched place information")
 
 	defer resp.Body.Close()
 
