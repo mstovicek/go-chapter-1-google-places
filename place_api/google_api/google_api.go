@@ -13,6 +13,8 @@ import (
 
 const googlePlaceEndpoint = "https://maps.googleapis.com/maps/api/place/details/json?key=%s&placeid=%s"
 
+const statusOk = "OK"
+
 type config struct {
 	ApiKey string `env:"API_KEY"`
 }
@@ -39,7 +41,7 @@ func NewGoogleApi() *GoogleApi {
 	return &GoogleApi{}
 }
 
-func (googleApi *GoogleApi) GetPlace(placeId string) places.Place {
+func (googleApi *GoogleApi) GetPlace(placeId string) (places.Place, error) {
 	var cnf config
 	err := envdecode.Decode(&cnf)
 	if err != nil {
@@ -57,12 +59,6 @@ func (googleApi *GoogleApi) GetPlace(placeId string) places.Place {
 		panic(err)
 	}
 
-	log.WithFields(log.Fields{
-		"placeId":      placeId,
-		"responseCode": resp.StatusCode,
-		"timeMs":       time.Since(start),
-	}).Info("Fetched place information")
-
 	defer resp.Body.Close()
 
 	res := googlePlace{}
@@ -73,7 +69,23 @@ func (googleApi *GoogleApi) GetPlace(placeId string) places.Place {
 
 	json.Unmarshal(body, &res)
 
-	return placeFromGooglePlace(res)
+	log.WithFields(log.Fields{
+		"placeId":      placeId,
+		"responseCode": resp.StatusCode,
+		"status":       res.Status,
+		"timeMs":       time.Since(start),
+	}).Info("Fetched place information")
+
+	if res.Status != statusOk {
+		log.WithFields(log.Fields{
+			"placeId": placeId,
+			"status":  res.Status,
+		}).Warn("Request not successful")
+
+		return places.Place{}, fmt.Errorf("Request for place %d not successful", placeId)
+	}
+
+	return placeFromGooglePlace(res), nil
 }
 
 func placeFromGooglePlace(gPlace googlePlace) places.Place {

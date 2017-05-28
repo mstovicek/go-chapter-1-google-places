@@ -40,5 +40,9 @@ func (places *Places) Save() {
 }
 
 func (places *Places) GetPlace(placeId string) Place {
-	return places.api.GetPlace(placeId)
+	place, _ := places.api.GetPlace(placeId)
+
+	// take care about err
+
+	return place
 }
