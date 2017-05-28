@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/joeshaw/envdecode"
-	"github.com/mstovicek/go-chapter-1-google-places/entity/place"
+	"github.com/mstovicek/go-chapter-1-google-places/entity/places"
 	"io/ioutil"
 	"net/http"
 )
@@ -30,7 +30,14 @@ type googlePlace struct {
 	}
 }
 
-func GetPlaceInformation(placeId string) place.Place {
+type GoogleApi struct {
+}
+
+func NewGoogleApi() *GoogleApi {
+	return &GoogleApi{}
+}
+
+func (googleApi *GoogleApi) GetPlace(placeId string) places.Place {
 	var cnf config
 	err := envdecode.Decode(&cnf)
 	if err != nil {
@@ -55,12 +62,12 @@ func GetPlaceInformation(placeId string) place.Place {
 	return placeFromGooglePlace(res)
 }
 
-func placeFromGooglePlace(gPlace googlePlace) place.Place {
-	return place.Place{
+func placeFromGooglePlace(gPlace googlePlace) places.Place {
+	return places.Place{
 		PlaceId:          gPlace.Result.PlaceId,
 		Name:             gPlace.Result.Name,
 		FormattedAddress: gPlace.Result.FormattedAddress,
-		Coordinates: place.Coordinates{
+		Coordinates: places.Coordinates{
 			Lat: gPlace.Result.Geometry.Location.Lat,
 			Lng: gPlace.Result.Geometry.Location.Lng,
 		},

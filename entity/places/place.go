@@ -1,4 +1,4 @@
-package place
+package places
 
 type Coordinates struct {
 	Lat float64 `json:"lat"`

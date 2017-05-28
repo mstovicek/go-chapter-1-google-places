@@ -2,18 +2,19 @@ package places
 
 import (
 	"encoding/json"
-	"github.com/mstovicek/go-chapter-1-google-places/entity/place"
 )
 
 type Places struct {
-	Places  []place.Place
+	Places  []Place
 	storage Storage
+	api     Api
 }
 
-func NewPlaces(s Storage) *Places {
+func NewPlaces(s Storage, a Api) *Places {
 	return &Places{
-		Places:  []place.Place{},
+		Places:  []Place{},
 		storage: s,
+		api:     a,
 	}
 }
 
@@ -32,4 +33,8 @@ func (places *Places) Save() {
 
 	places.storage.Append(places.String())
 	places.storage.Append("\n")
+}
+
+func (places *Places) GetPlace(placeId string) Place {
+	return places.api.GetPlace(placeId)
 }
