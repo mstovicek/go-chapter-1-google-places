@@ -1,8 +1,12 @@
 hash: 25a824d4ede1d980851d8c151bda9220493f5f0989e52f4a359c03b2ca21b13a
-updated: 2017-05-28T17:35:22.263112908+02:00
+updated: 2017-05-28T17:56:47.145037676+02:00
 imports:
 - name: github.com/joeshaw/envdecode
   version: 80f1552844fb7b53167f2eece6242494396b2fe6
 - name: github.com/Sirupsen/logrus
   version: ba1b36c82c5e05c4f912a88eab0dcd91a171688f
+- name: golang.org/x/sys
+  version: a55a76086885b80f79961eacb876ebd8caf3868d
+  subpackages:
+  - unix
 testImports: []
