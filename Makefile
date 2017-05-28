@@ -20,4 +20,5 @@ vet:
 	go vet $(shell glide novendor)
 
 lint:
+	go get -u -v github.com/golang/lint/golint
 	for file in $(shell find . -name '*.go' -not -path './vendor/*'); do golint $${file}; done
